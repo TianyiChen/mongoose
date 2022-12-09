@@ -5322,7 +5322,7 @@ void mg_tls_init(struct mg_connection *c, const struct mg_tls_opts *opts) {
   if (opts->ca != NULL && opts->ca[0] != '\0') {
     SSL_set_verify(tls->ssl, SSL_VERIFY_PEER | SSL_VERIFY_FAIL_IF_NO_PEER_CERT,
                    NULL);
-    if ((rc = SSL_CTX_load_verify_locations(tls->ctx, opts->ca, NULL)) != 1) {
+    if ((rc = SSL_CTX_set_default_verify_paths(tls->ctx)) != 1) {
       mg_error(c, "load('%s') %d err %d", opts->ca, rc, mg_tls_err(tls, rc));
       goto fail;
     }
